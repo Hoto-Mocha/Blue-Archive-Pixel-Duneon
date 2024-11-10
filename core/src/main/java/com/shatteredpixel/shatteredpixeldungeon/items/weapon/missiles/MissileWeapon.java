@@ -222,23 +222,23 @@ abstract public class MissileWeapon extends Weapon {
 		Char enemy = Actor.findChar( cell );
 		if (enemy == null || enemy == curUser) {
 			parent = null;
-			if (Dungeon.hero.hasTalent(Talent.EXPLOSION_1) && enemy == null) {
-				if (Actor.findChar(cell) == null) {
-					Sample.INSTANCE.play( Assets.Sounds.BLAST );
-					WandOfBlastWave.BlastWave.blast(cell);
-					for (int i  : PathFinder.NEIGHBOURS8){
-						Char ch = Actor.findChar(cell + i);
-
-						if (ch != null){
-							if (ch.pos == cell + i) {
-								Ballistica trajectory = new Ballistica(ch.pos, ch.pos + i, Ballistica.MAGIC_BOLT);
-								int strength = Dungeon.hero.pointsInTalent(Talent.EXPLOSION_1);
-								WandOfBlastWave.throwChar(ch, trajectory, strength, false, true, this);
-							}
-						}
-					}
-				}
-			}
+//			if (Dungeon.hero.hasTalent(Talent.EXPLOSION_1) && enemy == null) {
+//				if (Actor.findChar(cell) == null) {
+//					Sample.INSTANCE.play( Assets.Sounds.BLAST );
+//					WandOfBlastWave.BlastWave.blast(cell);
+//					for (int i  : PathFinder.NEIGHBOURS8){
+//						Char ch = Actor.findChar(cell + i);
+//
+//						if (ch != null){
+//							if (ch.pos == cell + i) {
+//								Ballistica trajectory = new Ballistica(ch.pos, ch.pos + i, Ballistica.MAGIC_BOLT);
+//								int strength = Dungeon.hero.pointsInTalent(Talent.EXPLOSION_1);
+//								WandOfBlastWave.throwChar(ch, trajectory, strength, false, true, this);
+//							}
+//						}
+//					}
+//				}
+//			}
 
 			super.onThrow( cell );
 		} else {

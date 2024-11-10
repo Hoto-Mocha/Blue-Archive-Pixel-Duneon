@@ -122,39 +122,40 @@ public class BlastMissile extends Buff implements ActionIndicator.Action {
             for (Mob mob : mobs) {
                 BlastMissileAttach attached = mob.buff(BlastMissileAttach.class);
                 int dmg = Random.NormalIntRange(5, 15);
-                if (hero.hasTalent(Talent.EXPLOSION_2)) {
-                    Shocking shocking = new Shocking();
-                    mob.damage(dmg, shocking);
-
-                    ArrayList<Char> affected = new ArrayList<>();
-                    ArrayList<Lightning.Arc> arcs = new ArrayList<>();
-
-                    affected.clear();
-                    arcs.clear();
-
-                    Shocking.arc(hero, mob, 2, affected, arcs);
-
-                    affected.remove(mob); //defender isn't hurt by lightning
-                    for (Char ch : affected) {
-                        if (ch.alignment != hero.alignment) {
-                            ch.damage(Random.IntRange(1, 3), shocking);
-                        }
-                    }
-
-                    hero.sprite.parent.addToFront( new Lightning( arcs, null ) );
-                    Sample.INSTANCE.play( Assets.Sounds.LIGHTNING );
-                } else {
+//                if (hero.hasTalent(Talent.EXPLOSION_2)) {
+//                    Shocking shocking = new Shocking();
+//                    mob.damage(dmg, shocking);
+//
+//                    ArrayList<Char> affected = new ArrayList<>();
+//                    ArrayList<Lightning.Arc> arcs = new ArrayList<>();
+//
+//                    affected.clear();
+//                    arcs.clear();
+//
+//                    Shocking.arc(hero, mob, 2, affected, arcs);
+//
+//                    affected.remove(mob); //defender isn't hurt by lightning
+//                    for (Char ch : affected) {
+//                        if (ch.alignment != hero.alignment) {
+//                            ch.damage(Random.IntRange(1, 3), shocking);
+//                        }
+//                    }
+//
+//                    hero.sprite.parent.addToFront( new Lightning( arcs, null ) );
+//                    Sample.INSTANCE.play( Assets.Sounds.LIGHTNING );
+//                } else
+                {
                     dmg -= mob.drRoll();
                     mob.damage(dmg, hero);
                 }
-                if (!hero.hasTalent(Talent.EXPLOSION_2) && Dungeon.level.heroFOV[mob.pos]) {
-                    CellEmitter.center(mob.pos).burst(BlastParticle.FACTORY, 30);
-                    CellEmitter.get(mob.pos).burst(SmokeParticle.FACTORY, 4);
-                    Sample.INSTANCE.play(Assets.Sounds.BLAST, 1, Random.Float(0.7f, 1.2f));
-                }
-                if (hero.hasTalent(Talent.EXPLOSION_3) && Random.Float() < 3/(float)hero.pointsInTalent(Talent.EXPLOSION_3)) {
-                    Buff.affect(mob, Burning.class).reignite(mob);
-                }
+//                if (!hero.hasTalent(Talent.EXPLOSION_2) && Dungeon.level.heroFOV[mob.pos]) {
+//                    CellEmitter.center(mob.pos).burst(BlastParticle.FACTORY, 30);
+//                    CellEmitter.get(mob.pos).burst(SmokeParticle.FACTORY, 4);
+//                    Sample.INSTANCE.play(Assets.Sounds.BLAST, 1, Random.Float(0.7f, 1.2f));
+//                }
+//                if (hero.hasTalent(Talent.EXPLOSION_3) && Random.Float() < 3/(float)hero.pointsInTalent(Talent.EXPLOSION_3)) {
+//                    Buff.affect(mob, Burning.class).reignite(mob);
+//                }
                 attached.detach();
             }
 
